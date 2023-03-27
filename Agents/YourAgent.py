@@ -6,7 +6,7 @@ class YourAgent:
         self.action_space = action_space
         self.observation_space = observation_space
         
-    def get_action(self, obs):
+    def get_action(self,env, obs):
         action = int(input("Enter your value: "))
         return action
     
