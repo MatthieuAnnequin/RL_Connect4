@@ -1,7 +1,15 @@
 import json
 from json import JSONEncoder
 import numpy
-from Run.run_episode import clean_q_values
+from tqdm import tqdm
+
+def clean_q_values(agent):
+    to_delete = list()
+    for qval in tqdm(agent.q_values):
+        if numpy.all(agent.q_values[qval] == numpy.zeros(7)):
+            to_delete.append(qval)
+    for to_del in to_delete:
+        del agent.q_values[to_del] 
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
