@@ -1,13 +1,14 @@
 import random
 import numpy as np
 
-class RandomAgent: 
+class RandomAgent(): 
     """
         An agent that only moves down or right, depending on its position on the grid
     """
-    def _init_(self, action_space, observation_space):
+    def __init__(self, action_space, observation_space, name='Random'):
         self.action_space = action_space
         self.observation_space = observation_space
+        self.name = name
         
     def get_action(self, env, obs):
         observation, reward, termination, truncation, info = env.last()
