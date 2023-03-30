@@ -1,6 +1,7 @@
 import json
 from json import JSONEncoder
 import numpy
+from Run.run_episode import clean_q_values
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
@@ -11,6 +12,7 @@ class NumpyArrayEncoder(JSONEncoder):
 def save_agent(agent, path):
 
     if agent.name == 'Q-learning':
+        clean_q_values(agent)
 
         numpyData = {"q_values": agent.q_values, "agent_type": agent.name, "gamma": agent.gamma, "lr": agent.lr}
         print("serialize NumPy array into JSON and write into a file")
