@@ -3,9 +3,7 @@ import numpy
 from Agents.QLearnerAgent import QLearner
 from pettingzoo.classic import connect_four_v3
 
-def load_agent(path):
-    env = connect_four_v3.env(render_mode='rgb_array')
-    env.reset()
+def load_agent(path, env):
     possible_action = {0,1,2,3,4,5,6}
     print("Started Reading JSON file")
     with open(path, "r") as read_file:
