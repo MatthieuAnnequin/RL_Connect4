@@ -45,7 +45,7 @@ class QLearner():
             return np.random.choice(np.flatnonzero(b == np.max(b))) # argmax with random tie-breaking
             #return np.argmax(b)
         
-    def get_action(self, env, obs): 
+    def get_action(self, env,  obs): 
         return self.eps_greedy(obs)
         
     def update(self, obs, action, reward, terminated, next_obs):
