@@ -9,7 +9,17 @@ env.reset()
 
 agent = MCTS(env, time_limit=5, player_role="player_0")
 
-print(agent.start_the_game())
+
+env.reset()
+for i in range(5):
+    agent = MCTS(env, time_limit=5, player_role="player_0")
+    action = agent.start_the_game()[1]
+    print(action)
+    env.step(action)
+    #other agent
+    env.step(1)
+
+print(agent.tree)   
 
 
 
