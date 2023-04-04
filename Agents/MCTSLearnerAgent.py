@@ -78,7 +78,7 @@ class MCTS():
         observation, _, _, _, _ = current_state.last()
         self.actions_available = list(np.where(observation['action_mask'] ==1)[0])
         done = check_result(current_state, player_mark)
-        child_node_id = leaf_node_id
+        child_node_id = leaf_node_id[0]
         is_availaible = False
 
         if len(self.actions_available) and not done:
@@ -186,6 +186,5 @@ class MCTS():
             if visit > total_visits:
                 total_visits = visit
                 best_action = action
-        
         return best_action
     
