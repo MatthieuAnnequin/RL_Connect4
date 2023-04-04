@@ -6,26 +6,25 @@ import os
 import numpy as np
 
 
-def put_new_piece(grid, col, mark, config):
+def put_new_piece(grid, col, mark):
     next_state = grid.deepcopy()
     next_state.step(col)
     return next_state
 
 
-def check_result(board, player_mark, config):
+def check_result(board, player_mark):
     return board.terminations[player_mark]
 
 
 
 class MCTS():
     
-    def __init__(self, obs, config):
+    def __init__(self, env, time_limit=5, player_role="player_0"):
 
-        self.state = np.asarray(obs.board).reshape(config.rows, config.columns)
-        self.config = config
-        self.player = obs.mark
+        self.state = env
+        self.player = player_role
         self.final_action = None
-        self.time_limit = self.config.timeout - 0.3
+        self.time_limit = time_limit
         self.root_node = (0,)
         self.tunable_constant = 1.0
 
@@ -77,7 +76,7 @@ class MCTS():
         player_mark = self.tree[leaf_node_id]['player']
         observation, _, _, _, _ = current_state.last()
         self.actions_available = list(np.where(observation['action_mask'] ==1)[0])
-        done = check_result(current_state, player_mark, self.config)
+        done = check_result(current_state, player_mark)
         child_node_id = leaf_node_id
         is_availaible = False
 
@@ -86,12 +85,12 @@ class MCTS():
             for action in self.actions_available:
                 child_id = leaf_node_id + (action,)
                 childs.append(action)
-                new_board = put_new_piece(current_state, action, player_mark, self.config)
+                new_board = put_new_piece(current_state, action, player_mark)
                 self.tree[child_id] = {'state': new_board, 'player': player_mark,
                                         'child': [], 'parent': leaf_node_id,
                                         'total_node_visits':0, 'total_node_wins':0}
 
-            if check_result(new_board, player_mark, self.config):
+            if check_result(new_board, player_mark):
                 best_action = action
                 is_availaible = True
 
@@ -112,7 +111,7 @@ class MCTS():
         state = self.tree[child_node_id]['state']
         previous_player = self.tree[child_node_id]['player']
 
-        is_terminal = check_result(state, previous_player, self.config)
+        is_terminal = check_result(state, previous_player)
         winning_player = previous_player
         count = 0
 
@@ -133,8 +132,8 @@ class MCTS():
                     current_player = 1
 
                 for actions in self.actions_available:
-                    state = put_new_piece(state, actions, current_player, self.config)
-                    result = check_result(state, current_player, self.config)
+                    state = put_new_piece(state, actions, current_player)
+                    result = check_result(state, current_player)
                     if result: # A player won the game
                         is_terminal = True
                         winning_player = current_player
