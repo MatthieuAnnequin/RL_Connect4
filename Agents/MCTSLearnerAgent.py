@@ -4,16 +4,17 @@ import time
 import inspect
 import os
 import numpy as np
+import copy
 
 
 def put_new_piece(grid, col, mark):
-    next_state = grid.deepcopy()
+    next_state = copy.deepcopy(grid)
     next_state.step(col)
     return next_state
 
 
 def check_result(board, player_mark):
-    return board.terminations[player_mark]
+    return board.terminations["player_0"]
 
 
 
