@@ -7,14 +7,13 @@ import numpy as np
 
 
 def put_new_piece(grid, col, mark, config):
-    next_state = grid.copy()
-    for row in range(config.rows-1, -1, -1):
-        if not next_state[row][col]:
-            break
-    next_state[row][col] = mark
+    next_state = grid.deepcopy()
+    next_state.step(col)
     return next_state
 
 
+def check_result(board, player_mark, config):
+    return board.terminations[player_mark]
 
 
 
