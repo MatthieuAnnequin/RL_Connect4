@@ -118,6 +118,7 @@ class MCTS():
         count = 0
 
         while not is_terminal:
+    
             observation, _, _, _, _ = state.last()
             self.actions_available = list(np.where(observation['action_mask'] ==1)[0])
 
