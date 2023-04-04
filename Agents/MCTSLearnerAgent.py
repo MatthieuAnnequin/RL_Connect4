@@ -6,12 +6,6 @@ import os
 import numpy as np
 
 
-
-
-
-
-
-
 class MCTS():
     
     def __init__(self, obs, config):
