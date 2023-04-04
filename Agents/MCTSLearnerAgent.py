@@ -6,6 +6,18 @@ import os
 import numpy as np
 
 
+def put_new_piece(grid, col, mark, config):
+    next_state = grid.copy()
+    for row in range(config.rows-1, -1, -1):
+        if not next_state[row][col]:
+            break
+    next_state[row][col] = mark
+    return next_state
+
+
+
+
+
 class MCTS():
     
     def __init__(self, obs, config):
@@ -106,9 +118,8 @@ class MCTS():
         count = 0
 
         while not is_terminal:
-
-            current_board = np.asarray(state).reshape(config.rows*config.columns)
-            self.actions_available = [c for c in range(self.config.columns) if not current_board[c]]
+            observation, _, _, _, _ = state.last()
+            self.actions_available = list(np.where(observation['action_mask'] ==1)[0])
 
             if not len(self.actions_available) or count==3:
                 winning_player = None
