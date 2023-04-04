@@ -47,18 +47,18 @@ class MCTS():
             node_id = leaf_node_id
             number_of_child = len(self.tree[node_id]['child'])
             if not number_of_child:
-            leaf_node_id = node_id
-            is_terminal_state = True
+                leaf_node_id = node_id
+                is_terminal_state = True
             else:
-            max_ucb_score = -math.inf
-            best_action = leaf_node_id
+                max_ucb_score = -math.inf
+                best_action = leaf_node_id
             for i in range(number_of_child):
                 action = self.tree[node_id]['child'][i]
                 child_id = leaf_node_id + (action,)
                 current_ucb = self.get_ucb(child_id)
                 if current_ucb > max_ucb_score:
-                max_ucb_score = current_ucb
-                best_action = action
+                    max_ucb_score = current_ucb
+                    best_action = action
             leaf_node_id = leaf_node_id + (best_action,)
         return leaf_node_id
 
@@ -78,12 +78,12 @@ class MCTS():
         if len(self.actions_available) and not done:
             childs = []
             for action in self.actions_available:
-            child_id = leaf_node_id + (action,)
-            childs.append(action)
-            new_board = put_new_piece(current_state, action, player_mark, self.config)
-            self.tree[child_id] = {'state': new_board, 'player': player_mark,
-                                    'child': [], 'parent': leaf_node_id,
-                                    'total_node_visits':0, 'total_node_wins':0}
+                child_id = leaf_node_id + (action,)
+                childs.append(action)
+                new_board = put_new_piece(current_state, action, player_mark, self.config)
+                self.tree[child_id] = {'state': new_board, 'player': player_mark,
+                                        'child': [], 'parent': leaf_node_id,
+                                        'total_node_visits':0, 'total_node_wins':0}
 
             if check_result(new_board, player_mark, self.config):
                 best_action = action
@@ -92,9 +92,9 @@ class MCTS():
             self.tree[leaf_node_id]['child'] = childs
             
             if is_availaible:
-            child_node_id = best_action
+                child_node_id = best_action
             else:
-            child_node_id = random.choice(childs)
+                child_node_id = random.choice(childs)
 
         return leaf_node_id + (child_node_id,)
 
@@ -116,23 +116,23 @@ class MCTS():
             self.actions_available = [c for c in range(self.config.columns) if not current_board[c]]
 
             if not len(self.actions_available) or count==3:
-            winning_player = None
-            is_terminal = True
-
-            else:
-            count+=1
-            if previous_player == 1:
-                current_player = 2
-            else:
-                current_player = 1
-
-            for actions in self.actions_available:
-                state = put_new_piece(state, actions, current_player, self.config)
-                result = check_result(state, current_player, self.config)
-                if result: # A player won the game
+                winning_player = None
                 is_terminal = True
-                winning_player = current_player
-                break
+
+            else:
+                count+=1
+                if previous_player == 1:
+                    current_player = 2
+                else:
+                    current_player = 1
+
+                for actions in self.actions_available:
+                    state = put_new_piece(state, actions, current_player, self.config)
+                    result = check_result(state, current_player, self.config)
+                    if result: # A player won the game
+                        is_terminal = True
+                        winning_player = current_player
+                        break
 
 
             previous_player = current_player
@@ -166,8 +166,8 @@ class MCTS():
         while time.time() - self.initial_time < self.time_limit:
             node_id = self.selection()
             if not is_expanded:
-            node_id = self.expansion(node_id)
-            is_expanded = True
+                node_id = self.expansion(node_id)
+                is_expanded = True
             winner = self.simulation(node_id)
             self.backpropagation(node_id, winner)
 
@@ -178,7 +178,7 @@ class MCTS():
             action = current_state_node_id + (action,)
             visit = self.tree[action]['total_node_visits']
             if visit > total_visits:
-            total_visits = visit
-            best_action = action
+                total_visits = visit
+                best_action = action
         
         return best_action
