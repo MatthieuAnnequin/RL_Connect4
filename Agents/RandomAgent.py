@@ -11,7 +11,6 @@ class RandomAgent:
         
     def get_action(self, env, obs):
         observation, reward, termination, truncation, info = env.last()
-        possible_action = {0,1,2,3,4,5,6}
         action_mask = obs['action_mask']
         possible_action = list(np.where(action_mask ==1)[0])
         try:
