@@ -57,14 +57,14 @@ class MCTS():
             else:
                 max_ucb_score = -math.inf
                 best_action = leaf_node_id
-            for i in range(number_of_child):
-                action = self.tree[node_id]['child'][i]
-                child_id = leaf_node_id + (action,)
-                current_ucb = self.get_ucb(child_id)
-                if current_ucb > max_ucb_score:
-                    max_ucb_score = current_ucb
-                    best_action = action
-            leaf_node_id = leaf_node_id + (best_action,)
+                for i in range(number_of_child):
+                    action = self.tree[node_id]['child'][i]
+                    child_id = leaf_node_id + (action,)
+                    current_ucb = self.get_ucb(child_id)
+                    if current_ucb > max_ucb_score:
+                        max_ucb_score = current_ucb
+                        best_action = action
+                leaf_node_id = leaf_node_id + (best_action,)
         return leaf_node_id
 
     def expansion(self, leaf_node_id):

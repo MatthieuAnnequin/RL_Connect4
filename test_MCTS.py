@@ -9,7 +9,7 @@ env.reset()
 
 agent = MCTS(env, time_limit=5, player_role="player_0")
 
-agent.start_the_game()
+print(agent.start_the_game())
 
 
 
