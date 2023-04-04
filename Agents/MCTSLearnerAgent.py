@@ -75,8 +75,8 @@ class MCTS():
         '''
         current_state = self.tree[leaf_node_id]['state']
         player_mark = self.tree[leaf_node_id]['player']
-        current_board = np.asarray(current_state).reshape(config.rows*config.columns)
-        self.actions_available = [c for c in range(self.config.columns) if not current_board[c]]
+        observation, _, _, _, _ = current_state.last()
+        self.actions_available = list(np.where(observation['action_mask'] ==1)[0])
         done = check_result(current_state, player_mark, self.config)
         child_node_id = leaf_node_id
         is_availaible = False
