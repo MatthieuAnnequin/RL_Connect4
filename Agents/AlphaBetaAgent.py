@@ -79,7 +79,7 @@ class AlphaBetaAgent:
         self.observation_space = observation_space
         self.depth = depth
     
-    def get_action(self, observation):
+    def get_action(self, env,observation):
         connect_4_copy = Connect4(board=get_board(observation))
         return best_move(connect_4_copy, self.depth)
     

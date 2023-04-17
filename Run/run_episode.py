@@ -15,7 +15,7 @@ def run_episode(env, agents, display=False):
         # red play (player 0)
         observation, reward, termination, truncation, _ = env.last()
         if not termination and not truncation:
-            action = agents[0].get_action(observation)
+            action = agents[0].get_action(env,observation)
             env.step(action)
         next_observation, reward, termination, truncation, _ = env.last()
         reward = env.rewards.get(agent_ids[0])
@@ -35,7 +35,6 @@ def run_episode(env, agents, display=False):
         observation = next_observation
 
         if display: 
-
             display_board(env)
     return env, agents
 
