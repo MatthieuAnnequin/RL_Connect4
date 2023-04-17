@@ -5,7 +5,7 @@ class RandomAgent():
     """
         An agent that only moves down or right, depending on its position on the grid
     """
-    def __init__(self, action_space, observation_space, name='Random'):
+    def __init__(self, env, action_space, observation_space, name='Random'):
         self.action_space = action_space
         self.observation_space = observation_space
         self.name = name
