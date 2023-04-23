@@ -1,9 +1,9 @@
 import json
 import numpy
-from Agents.QLearnerAgent import QLearner
+from Agents.DeepQLearnerAgent import DeepQLearner
 from pettingzoo.classic import connect_four_v3
 
-def load_agent(path, env):
+def load_deep_agent(path, env):
     possible_action = {0,1,2,3,4,5,6}
     print("Started Reading JSON file")
     with open(path, "r") as read_file:
@@ -15,7 +15,7 @@ def load_agent(path, env):
         lr = numpy.asarray(decodedArray["lr"])
 
         if agent_type == 'Q-learning':
-            agent = QLearner(possible_action, env.observation_space, gamma=gamma, lr=lr)
+            agent = DeepQLearner(possible_action, env.observation_space, gamma=gamma, lr=lr)
             saved_q_values = numpy.asarray(decodedArray["q_values"])
             for key, value in saved_q_values.flatten()[0].items():
                 agent.q_values[key] = value

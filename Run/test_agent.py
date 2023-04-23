@@ -14,4 +14,4 @@ def test_agent(env, agents, N_episodes):
         else:
             res['equal'] += 1
     print(res)
-    return env, agents
+    return res, env, agents
