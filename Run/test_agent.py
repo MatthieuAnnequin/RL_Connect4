@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 def test_agent(env, agents, N_episodes):
     res = {'player_0':0,'player_1':0,'equal':0}
-    for i in tqdm(range(N_episodes)):
+    for _ in tqdm(range(N_episodes)):
         env.reset()
         env, agents = run_episode(env, agents, display=False)
         #print(env.rewards)

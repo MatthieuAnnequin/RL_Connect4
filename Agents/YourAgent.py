@@ -1,6 +1,6 @@
 class YourAgent: 
     """
-        An agent that only moves down or right, depending on its position on the grid
+        An agent that get action as input
     """
     def __init__(self, name = 'Yourname'):
         self.name = name
